@@ -1,0 +1,115 @@
+import parrilla.*
+import comidas.*
+import panes.*
+import comensales.*
+
+describe "parrillada con al menos tres componentes y probar los casos significativos"{
+	var provoleta
+	var parrillada
+	var provoleta2
+	var hamburguesa
+	var comensalQueCompra
+	var comensalqueNoCompra
+	
+	
+	method initialize(){
+		hamburguesa = new HamburguesaDeCarne(tipoPan = industrial,peso = 25)
+	 provoleta = new Provoleta(peso = 0,empanado = false)
+	 comensalQueCompra = new Comensal(dinero = 40000,tipo = todoTerreno)
+	 parrillada = new Parrillada(comidas = [hamburguesa,provoleta,provoleta2],peso = 0)
+	 provoleta2 = new Provoleta(peso = 2,empanado = true)
+	 comensalqueNoCompra = new Comensal(dinero = 0, tipo = todoTerreno)
+	 
+	
+	}
+	
+	test "el comensal puede comprar una parrillada"{
+	comensalQueCompra.comprar(parrillada)
+	assert.equals(20000,comensalQueCompra.dinero()) /* el comensal compra pero no se el valor final */
+	
+	}
+	
+	test "el comensal no puede comprar la parrillada"{
+ 	assert.throwsException({ comensalqueNoCompra.comprar(parrillada) })
+}
+
+	}
+	
+describe "prueba de darse un gusto"{
+	var provoleta
+	var parrillada
+	var provoleta2
+	var hamburguesa
+	var comensalQueCompra
+	var comensalqueNoCompra
+	
+	
+	method initialize(){
+		hamburguesa = new HamburguesaDeCarne(tipoPan = industrial,peso = 25)
+	 provoleta = new Provoleta(peso = 0,empanado = false)
+	 comensalQueCompra = new Comensal(dinero = 40000,tipo = todoTerreno)
+
+	 provoleta2 = new Provoleta(peso = 2,empanado = true)
+	 comensalqueNoCompra = new Comensal(dinero = 0, tipo = todoTerreno)
+	 
+	 }
+	 
+	test "el comensal puede darse un gusto"{
+		parrilla.agregarPlato(provoleta)
+		parrilla.agregarPlato(provoleta2)
+		comensalQueCompra.darseUnGusto()
+		
+		assert.equals(20000, comensalQueCompra.dinero())
+	}
+	
+	test "el comensal no puede darse un gusto"{
+		parrilla.agregarPlato(provoleta)
+		parrilla.agregarPlato(provoleta2)
+ 	assert.throwsException({ comensalqueNoCompra.darseUnGusto() })
+}
+
+
+	
+	}
+describe "prueba de tipos"{
+	var comensal
+
+	
+	
+	method initialize(){
+	 comensal = new Comensal(dinero = 40000,tipo = todoTerreno)
+	 
+	 }
+	 test "el comensal tiene problemas gastricos y se convierte en celiaco"{
+		comensal.aparecieronProblemasGastricos()
+		assert.equals(celiaco,comensal.tipo())
+	 }
+	 
+	 	 test "el comensal tiene problemas economicos y se vuelve un todoTerreno"{
+		comensal.nohayplata()
+		assert.equals(todoTerreno,comensal.tipo())
+	 }
+	 
+	 	 test "el comensal hace un acuerdo con un jeque arabe y desarrolla un paladar fino"{
+		comensal.acuerdoconJeque()
+		assert.equals(dePaladarFino,comensal.tipo())
+	 }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
